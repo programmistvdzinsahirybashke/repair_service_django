@@ -88,9 +88,9 @@
                             height="16">
                     </button>
                     <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
-                        {% tag_categories as categories%}
-                        {% for category in categories%}
-                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" %}">{{ category.category_name }}</a></li>
+                        {% tag_categories as categories %}
+                        {% for category in categories %}
+                        <li><a class="dropdown-item text-white" href="{% url "catalog:index" category.slug %}">{{ category.category_name }}</a></li>
                          {% endfor %}
                     </ul>
                 </div>
