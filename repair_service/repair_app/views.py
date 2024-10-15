@@ -2,12 +2,17 @@ from lib2to3.fixes.fix_input import context
 
 from django.http import HttpResponse
 from django.shortcuts import render
+from goods.models import Category
 
 # Create your views here.
 def index(request):
+
+    category = Category.objects.all()
+
     context = {
         'title':'RepAir - Главная',
         'content':'Добро пожаловать в сервис ремонта RepAir !',
+        'categories': category,
 
     }
     return render(request, 'repair_app/index.html', context);
