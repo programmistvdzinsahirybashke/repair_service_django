@@ -21,6 +21,7 @@ class Service(models.Model):
         db_table = 'Service'
         verbose_name = 'Услугу'
         verbose_name_plural = 'Услуги'
+        ordering = ("id",)
 
     service_name = models.CharField(max_length=200, verbose_name = 'Название услуги')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name = 'ID категории')  # Связь с категорией
