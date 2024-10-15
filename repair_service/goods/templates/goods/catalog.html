@@ -44,20 +44,22 @@
                         {% for product in goods %}
                         <!-- Карта товара -->
                         <div class="col-lg-4 col-md-6 p-4">
-                            <div class="card border-primary rounded custom-shadow">
-                                <img src="{% static product.image %}" class="card-img-top" alt="...">
+                            <div class="card border-primary rounded">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" class="card-img-top" alt="Тут была просто иконка">
+                                {% else %}
+                                    <img src="{% static "deps/images/7835443.jpg" %}" class="card-img-top" alt="...">
+                                {% endif %}
+
                                 <div class="card-body">
                                     <a href="../goods/product.html">
-                                        <p class="card-title">{{ product.name }}</p>
+                                        <p class="card-title">{{ product.service_name }}</p>
                                     </a>
-                                    <p class="card-text text-truncate">{{ product.description }}</p>
-                                    <p class="product_id">id: 02265</p>
+                                    <p class="card-text text-truncate">{{ product.service_description }}</p>
+                                    <p class="card-text text-truncate">{{ product.category }}</p>
                                     <div class="d-flex justify-content-between">
-                                        {{ product.price }}
-<!--                                        <p><s>100</s> $</p>-->
-<!--                                        <p><strong>90.00 $</strong></p>-->
-<!--                                        <span class="badge bg-warning text-dark">Скидка 10.00 %</span>-->
-                                        <!-- <p><strong>100.00 $</strong></p> -->
+                                        {{ product.price }} руб.
+
                                         <a href="#" class="btn add-to-cart">
                                             <img class="mx-1" src="{% static "/deps/icons/cart-plus.svg" %}" alt="Catalog Icon"
                                                 width="32" height="32">
@@ -72,7 +74,7 @@
                     <!-- Пагинация -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center my-4">
-                            <div class="custom-shadow d-flex">
+                            <div class=" d-flex">
                                 <li class="page-item disabled">
                                   <a class="page-link">Previous</a>
                                 </li>
