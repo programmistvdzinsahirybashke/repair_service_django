@@ -7,12 +7,12 @@ from goods.models import Category
 # Create your views here.
 def index(request):
 
-    category = Category.objects.all()
+
 
     context = {
         'title':'RepAir - Главная',
         'content':'Добро пожаловать в сервис ремонта RepAir !',
-        'categories': category,
+
 
     }
     return render(request, 'repair_app/index.html', context);
