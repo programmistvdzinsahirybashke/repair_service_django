@@ -5,7 +5,9 @@ from lib2to3.fixes.fix_input import context
 from django.core.paginator import Paginator
 
 # Create your views here.
-def catalog(request, category_slug, page=1):
+def catalog(request, category_slug):
+
+    page = request.GET.get('page', 1)
 
     if category_slug == 'all':
         goods = Service.objects.all()
