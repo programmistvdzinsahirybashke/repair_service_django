@@ -4,16 +4,23 @@ from goods.models import Service
 from lib2to3.fixes.fix_input import context
 from django.core.paginator import Paginator
 
+from goods.utils import q_search
+
+
 # Create your views here.
-def catalog(request, category_slug):
+def catalog(request, category_slug=None):
 
     page = request.GET.get('page', 1)
     on_sale = request.GET.get('on_sale', None)
     order_by = request.GET.get('order_by', None)
+    query = request.GET.get('q', None)
+
 
 
     if category_slug == 'all':
         goods = Service.objects.all()
+    elif query:
+        goods = q_search(query)
     else:
         goods = get_list_or_404(Service.objects.filter(category__slug=category_slug))
 
