@@ -42,5 +42,4 @@ class Service(models.Model):
     def sell_price(self):
         if self.discount:
             return round(self.price - self.price*self.discount/100, 2)
-
         return self.price

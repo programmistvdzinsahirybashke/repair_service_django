@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'repair_app',
     'goods',
     'users',
+    'carts',
 
 ]
 
