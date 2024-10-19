@@ -8,7 +8,7 @@ from goods.models import Category
 def index(request):
     context = {
         'title':'RepAir - Главная',
-        'content':'Добро пожаловать в сервис ремонта RepAir !',
+        'content':'Сервис ремонта RepAir',
     }
     return render(request, 'repair_app/index.html', context);
 

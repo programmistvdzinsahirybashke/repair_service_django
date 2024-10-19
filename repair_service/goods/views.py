@@ -15,8 +15,6 @@ def catalog(request, category_slug=None):
     order_by = request.GET.get('order_by', None)
     query = request.GET.get('q', None)
 
-
-
     if category_slug == 'all':
         goods = Service.objects.all()
     elif query:
@@ -28,7 +26,6 @@ def catalog(request, category_slug=None):
         goods = goods.filter(discount__gt=0)
     if order_by and order_by != 'default':
         goods = goods.order_by(order_by)
-
 
     paginator = Paginator(goods, per_page=3)
     current_page = paginator.page(page)
