@@ -2,6 +2,8 @@ from django.contrib import admin
 
 from carts.admin import CartTabAdmin
 from users.models import User
+from orders.admin import OrderTabulareAdmin
+
 
 # admin.site.register(Category)
 # admin.site.register(Service)
@@ -10,4 +12,4 @@ from users.models import User
 class UserAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name', 'last_name', 'email' ]
 
-    inlines = [CartTabAdmin,]
+    inlines = [CartTabAdmin, OrderTabulareAdmin]
