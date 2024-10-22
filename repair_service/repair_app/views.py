@@ -8,7 +8,7 @@ from goods.models import Category
 def index(request):
     context = {
         'title':'RepAir - Главная',
-        'content':'Сервис ремонта RepAir',
+        'content':'Сервис ремонта RepAir - Вдохните новую жизнь в ваши средства передвижения!',
     }
     return render(request, 'repair_app/index.html', context);
 
@@ -16,6 +16,18 @@ def about(request):
     context = {
         'title': 'О нас',
         'content': 'О сервисе ремонта RepAir',
-        'text_on_page':"Мы предоставляем качественные услуги по ремонту микромобильных средств. Наша команда экспертов готова помочь вам с любыми вопросами!",
+        'text_on_page':"""""",
     }
     return render(request, 'repair_app/about.html', context);
+
+def contacts(request):
+    context = {
+        'title': 'Контакты',
+    }
+    return render(request, 'repair_app/contacts.html', context);
+
+def zakaz_and_dostavka(request):
+    context = {
+        'title': 'Заказ и оплата',
+    }
+    return render(request, 'repair_app/zakaz_and_dostavka.html', context);
