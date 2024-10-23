@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'goods',
     'users',
     'carts',
+    'orders',
 
 ]
 
@@ -90,7 +91,7 @@ WSGI_APPLICATION = 'repair_service.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'qwe',  # замените на имя вашей базы данных
+        'NAME': 'qwe3',  # замените на имя вашей базы данных
         'USER': 'postgres',  # ваш логин
         'PASSWORD': '123',  # ваш пароль
         'HOST': 'localhost',

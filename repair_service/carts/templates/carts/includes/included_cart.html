@@ -1,9 +1,9 @@
 {% load static %}
 
-<div class="card mb-3 text-bg-light shadow-lg">
+<div class="card mb-3 text-bg-light ">
     {% for cart in carts %}
         <div class="card-header">
-            <h5 class="card-title">{{ cart.product.name }}</h5>
+            <h5 class="card-title">Услуга: {{ cart.product.service_name }} | Категория: {{ cart.product.category }}</h5>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">
@@ -45,9 +45,14 @@
         </ul>
     {% endfor %}
 </div>
-<div class="card mb-3 shadow-lg">
+<div class="card mb-3 ">
     <div class="card-footer">
-        <p class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</p>
+        <p class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> услуг(а) на сумму</p>
         <h4 class="float-left"><strong>{{ carts.total_price }} рублей</strong></h4>
     </div>
 </div>
+{% if carts and not order %}
+<a class="btn btn-dark" href="{% url 'orders:create_order' %}">
+Оформить заказ
+</a>
+{% endif %}
