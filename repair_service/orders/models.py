@@ -2,6 +2,8 @@ from django.db import models
 from goods.models import Service
 from users.models import User
 
+from users.models import Employee
+
 
 class OrderitemQueryset(models.QuerySet):
 
@@ -13,6 +15,19 @@ class OrderitemQueryset(models.QuerySet):
             return sum(cart.quantity for cart in self)
         return 0
 
+
+class Status(models.Model):
+    status_name = models.CharField(max_length=150, verbose_name="Название статуса")
+    status_description = models.CharField(max_length=150, verbose_name="Описание статуса")
+
+
+    class Meta:
+        db_table = "status"
+        verbose_name = "Статус"
+        verbose_name_plural = "Статусы"
+
+    def __str__(self):
+        return f"Статус : {self.status_name}"
 
 class Order(models.Model):
     user = models.ForeignKey(to=User, on_delete=models.SET_DEFAULT, blank=True, null=True, verbose_name="Пользователь",
@@ -27,7 +42,7 @@ class Order(models.Model):
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий клиента")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
-    status = models.CharField(max_length=50, default='В обработке', verbose_name="Статус заказа")
+    status = models.ForeignKey(to=Status, on_delete=models.SET_DEFAULT, blank=True, null=True,default=1, verbose_name="Статус заказа")
 
     class Meta:
         db_table = "order"
@@ -46,6 +61,8 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Цена")
     quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
+    status = models.ForeignKey(to=Status, on_delete=models.SET_DEFAULT, blank=True, null=True,default=1, verbose_name="Статус заказа")
+    employee = models.ForeignKey(to=Employee, on_delete=models.SET_DEFAULT, blank=True, null=True,default=None, verbose_name="Назначен сотруднику")
 
     class Meta:
         db_table = "order_item"

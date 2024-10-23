@@ -2,7 +2,7 @@ from django.contrib import admin
 # from carts.admin import CartTabAdmin
 # from orders.admin import OrderTabulareAdmin
 from users.models import User
-from orders.models import Order, OrderItem
+from orders.models import Order, OrderItem, Status
 
 
 from django.contrib import admin
@@ -10,6 +10,10 @@ from django.contrib import admin
 # Register your models here.
 # admin.site.register(Order)
 # admin.site.register(OrderItem)
+
+admin.site.register(Status)
+
+
 class OrderItemTabulareAdmin(admin.TabularInline):
     model = OrderItem
     fields = "product", "name", "price", "quantity"

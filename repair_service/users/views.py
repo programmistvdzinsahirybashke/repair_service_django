@@ -98,7 +98,6 @@ def profile(request):
         'title': 'Мой профиль',
         'form': form,
         'orders':orders,
-
     }
     return render(request, 'users/profile.html', context=context)
 

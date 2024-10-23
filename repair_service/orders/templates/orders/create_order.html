@@ -4,7 +4,7 @@
 
 {% block content %}
 {% csrf_token %}
-<div class=" bg-white p-4 mb-4 mx-2 rounded custom-shadow">
+<div class=" bg-white p-4 mb-4 mx-2 rounded ">
                         <div class="container">
                             <h3 class="text-center mb-4">Выбранные товары</h3>
                             <div class="container" id="cart-items-container">
@@ -30,7 +30,7 @@
                                                     name="first_name" required>
                                                 {% if form.first_name.errors %}
                                                     <!-- Для non_field_erors  -->
-                                                        <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                                                        <div class="alert alert-danger alert-dismissible fade show " role="alert">
                                                             {{form.first_name.errors}}
                                                         </div>
                                                     {% endif %}
@@ -42,7 +42,7 @@
                                                        required>
                                                 {% if form.last_name.errors %}
                                                     <!-- Для non_field_erors  -->
-                                                        <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                                                        <div class="alert alert-danger alert-dismissible fade show " role="alert">
                                                             {{form.last_name.errors}}
                                                         </div>
                                                     {% endif %}
@@ -56,7 +56,7 @@
                                                     required>
                                                                                                 {% if form.phone_number.errors %}
                                                     <!-- Для non_field_erors  -->
-                                                        <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                                                        <div class="alert alert-danger alert-dismissible fade show " role="alert">
                                                             {{form.phone_number.errors}}
                                                         </div>
                                                     {% endif %}
@@ -65,7 +65,7 @@
                                               <label for="date">Дата:</label>
                                                   {% if form.date.errors %}
                 <!-- Для non_field_erors  -->
-                    <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
                         {{form.date.errors}}
                     </div>
                 {% endif %}
@@ -75,7 +75,7 @@
        		 <label for="time">Время:</label>
                                                                                                                                                       {% if form.time.errors %}
                 <!-- Для non_field_erors  -->
-                    <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
                         {{form.time.errors}}
                     </div>
                 {% endif %}
@@ -153,7 +153,7 @@
                                                         доставка</label>
                                                     {% if form.requires_delivery.errors %}
                 <!-- Для non_field_erors  -->
-                    <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
                         {{form.requires_delivery.errors}}
                     </div>
                 {% endif %}
@@ -177,7 +177,7 @@
 
                                                          {% if form.delivery_address.errors %}
                                                     <!-- Для non_field_erors  -->
-                                                        <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                                                        <div class="alert alert-danger alert-dismissible fade show " role="alert">
                                                             {{form.delivery_address.errors}}
                                                         </div>
                                                     {% endif %}
@@ -191,7 +191,7 @@
                                                         картой</label>
                                                     {% if form.payment_on_get.errors %}
                 <!-- Для non_field_erors  -->
-                    <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
                         {{form.payment_on_get.errors}}
                     </div>
                 {% endif %}
@@ -203,7 +203,7 @@
                                                         при получении</label>
                                                     {% if form.payment_on_get.errors %}
                 <!-- Для non_field_erors  -->
-                    <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
                         {{form.payment_on_get.errors}}
                     </div>
                 {% endif %}
@@ -214,7 +214,7 @@
                                                     name="comment" rows="2"></textarea>
                                                                                                 {% if form.comment.errors %}
                 <!-- Для non_field_erors  -->
-                    <div class="alert alert-danger alert-dismissible fade show custom-shadow" role="alert">
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
                         {{form.comment.errors}}
                     </div>
                 {% endif %}
