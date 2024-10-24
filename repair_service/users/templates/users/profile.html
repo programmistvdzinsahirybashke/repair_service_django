@@ -137,6 +137,7 @@
                                                 <th>Цена</th>
                                                 <th>Общая стоимость</th>
                                                 <th>Статус</th>
+                                                <th>Дата и время выполнения</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -147,6 +148,12 @@
                                                 <td>{{ item.price }}</td>
                                                 <td>{{ item.quantity|multiply:item.price|floatformat:2 }} руб.</td>
                                                 <td>{{ item.status.status_name }} </td>
+                                                {% if item.work_ended_datetime %}
+                                                <td>{{ item.work_ended_datetime }} </td>
+                                                {% else %}
+                                                <td> - </td>
+                                                {% endif %}
+
                                             </tr>
                                             {% endfor %}
                                         </tbody>

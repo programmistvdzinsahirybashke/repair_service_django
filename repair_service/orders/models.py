@@ -38,7 +38,7 @@ class Order(models.Model):
     delivery_address = models.TextField(null=True, blank=True, verbose_name="Адрес для забирания на ремонт")
     delivery_date = models.DateField(null=True, verbose_name='Дата доставки/получения на ремонт')
     delivery_time = models.TimeField(null=True, verbose_name='Время доставки/получения на ремонт')
-    work_ended_datetime = models.DateTimeField(auto_now_add=True, verbose_name='Дата выполнения работ')
+    order_finished_datetime = models.DateTimeField(default=None, blank=True, null=True, verbose_name='Дата завершения заказа')
     payment_on_get = models.BooleanField(default=False, verbose_name="Оплата при получении")
     comment = models.TextField(null=True, blank=True, verbose_name="Комментарий клиента")
     is_paid = models.BooleanField(default=False, verbose_name="Оплачено")
@@ -63,6 +63,8 @@ class OrderItem(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
     status = models.ForeignKey(to=Status, on_delete=models.SET_DEFAULT, blank=True, null=True,default=1, verbose_name="Статус заказа")
     employee = models.ForeignKey(to=Employee, on_delete=models.SET_DEFAULT, blank=True, null=True,default=None, verbose_name="Назначен сотруднику")
+    work_ended_datetime = models.DateTimeField(default=None, blank=True, null=True, verbose_name='Дата и время выполнения')
+
 
     class Meta:
         db_table = "order_item"
