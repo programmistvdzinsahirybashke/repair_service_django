@@ -111,23 +111,23 @@
                                  class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}"
                                  aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <p><strong>Информация о заказе</strong> </p>
-                                        <p>Общая сумма: <strong>{{ order.total }} руб.</strong></p>
+                                    <p><strong>Информация о заказе №{{ order.id }}</strong> </p>
+                                        <p><strong>Общая сумма: </strong>{{ order.total }} руб.</p>
 
                                             {% if order.requires_delivery %}
                                             <p>Требуется выезд сотрудника:<strong> Да </strong></p>
                                             {% else %}
-                                            <p>Требуется выезд:<strong> Нет </strong></p>
+                                            <p><strong>Требуется выезд: </strong>Нет </p>
                                             {% endif %}
 
                                     {% if order.delivery_address  %}
                                     <p>Адрес для выездного забора средства в сервис: <strong>{{ order.delivery_address }}</strong></p>
                                     <p>Дата и время выездного забора средства в сервис: <strong>{{ order.delivery_date }}</strong> в <strong>{{ order.delivery_time }} МСК</strong> </p>
                                     {% else %}
-                                     <p>Адрес для сдачи средства в сервис: <strong>ул. Примерная, 10, г. Москва, Россия</strong></p>
-                                    <p>Дата и время для сдачи средства в сервис: <strong>{{ order.delivery_date }}</strong> в <strong>{{ order.delivery_time }} МСК</strong> </p>
+                                    <p><strong>Адрес для сдачи средства в сервис: </strong>г. Альметьевск, ул. Примерная 116</p>
+                                    <p><strong>Дата и время для сдачи средства в сервис:</strong> {{ order.delivery_date }} в {{ order.delivery_time }} МСК </p>
                                     {% endif %}
-                                    <p><strong>Комментарий: </strong>{{ order.comment }}</p>
+                                    <p><strong>Комментарий: </strong>"{{ order.comment }}"</p>
                                     <p> <strong>Состав заказа в таблице:</strong> </p>
                                     <table class="table table-dark table-hover">
                                         <thead>
