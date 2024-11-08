@@ -64,7 +64,7 @@ class OrderItem(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Цена")
     quantity = models.PositiveIntegerField(default=0, verbose_name="Количество")
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
-    status = models.ForeignKey(to=Status, on_delete=models.SET_DEFAULT, blank=True, null=True,default=1,limit_choices_to={'status_category': 'Услуга'}, verbose_name="Статус услуги")
+    status = models.ForeignKey(to=Status, on_delete=models.SET_DEFAULT,default=1,limit_choices_to={'status_category': 'Услуга'}, verbose_name="Статус услуги")
     employee = models.ForeignKey(to=Employee, on_delete=models.SET_DEFAULT, blank=True, null=True,default=None, verbose_name="Назначен сотруднику")
     work_ended_datetime = models.DateTimeField(default=None, blank=True, null=True, verbose_name='Дата и время выполнения')
 

@@ -8,13 +8,15 @@ admin.site.register(Status)
 
 class OrderItemTabulareAdmin(admin.TabularInline):
     model = OrderItem
-    fields = "product", "name", "price", "quantity", "status"
+    fields = "product", "name", "price", "quantity", "status", "employee"
     search_fields = ("product", "name",)
     extra = 0
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
+
         if db_field.name == "status":
             kwargs["queryset"] = Status.objects.filter(status_category="Услуга")
+
         return super().formfield_for_foreignkey(db_field, request, **kwargs)
 
 
