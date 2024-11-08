@@ -2,6 +2,8 @@ import re
 
 from django import forms
 from django.db.models import TimeField
+from orders.models import Order, OrderItem, Status
+
 
 
 class CreateOrderForm(forms.Form):
@@ -36,55 +38,3 @@ class CreateOrderForm(forms.Form):
             raise forms.ValidationError("Неверный формат номера")
 
         return data
-
-    # first_name = forms.CharField(
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Введите ваше имя",
-    #         }
-    #     )
-    # )
-    # last_name = forms.CharField(
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Введите вашу фамилию",
-    #         }
-    #     )
-    # )
-    # phone_number = forms.CharField(
-    #     widget=forms.TextInput(
-    #         attrs={
-    #             "class": "form-control",
-    #             "placeholder": "Номер телефона",
-    #         }
-    #     )
-    # )
-    # requires_delivery = forms.ChoiceField(
-    #     widget=forms.RadioSelect(),
-    #     choices=[
-    #         ("0", False),
-    #         ("1", True),
-    #     ],
-    #     initial=0,
-    # )
-    # delivery_address = forms.CharField(
-    #     widget=forms.Textarea(
-    #         attrs={
-    #             "class": "form-control",
-    #             "id": "delivery-address",
-    #             "rows": 2,
-    #             "placeholder": "Введите адрес доставки",
-    #         }
-    #     ),
-    #     required=False,
-    # )
-    # payment_on_get = forms.ChoiceField(
-    #     widget=forms.RadioSelect(),
-    #     choices=[
-    #         ("0", 'False'),
-    #         ("1", 'True'),
-    #     ],
-    #     initial="card",
-    # )
