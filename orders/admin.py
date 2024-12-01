@@ -13,7 +13,7 @@ admin.site.register(Status)
 # TabularInline для строки OrderItem в Order
 class OrderItemTabularAdmin(admin.TabularInline):
     model = OrderItem
-    fields = ("product", "name", "price", "quantity", "status", "employee")
+    fields = ("product", "name", "price", "quantity", "status", "employee", "work_ended_datetime")
     extra = 0
 
     def formfield_for_foreignkey(self, db_field, request, **kwargs):
