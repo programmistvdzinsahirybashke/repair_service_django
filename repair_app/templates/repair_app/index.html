@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css"%}">
+{% endblock %}
+
+{% block modal_cart %}
+{% include "includes/cart_button.html" %}
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-5 pt-5"><strong>{{ content }}</strong></h1>
+
+<div class="text-left ">
+    <img src="{% static "deps/images/bass.jpg" %}" alt="Описание изображения" class="img-fluid" style="width: 100%; height: auto;">
+</div>
+{% endblock %}
+
+
+{% block footer %}
+<footer class="py-4 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; RepAir 2024</p>
+    </div>
+</footer>
+{% endblock %}
+
