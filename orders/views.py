@@ -74,7 +74,7 @@ def create_order(request):
         form = CreateOrderForm(initial=initial)
 
     context = {
-        'title': 'Home - Оформление заказа',
+        'title': 'RepAir - Оформление заказа',
         'form': form,
         'order':True,
     }
