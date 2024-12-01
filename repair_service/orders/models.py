@@ -64,7 +64,7 @@ class OrderItem(models.Model):
     created_timestamp = models.DateTimeField(auto_now_add=True, verbose_name="Дата продажи")
     status = models.ForeignKey(to=Status, on_delete=models.SET_DEFAULT, default=1, limit_choices_to={'status_category': 'Услуга'}, verbose_name="Статус услуги")
 
-    employee = models.ForeignKey(to=Employee, on_delete=models.SET_DEFAULT, blank=True, null=True, default=None, verbose_name="Назначен сотруднику", limit_choices_to={})
+    employee = models.ForeignKey(to=Employee, on_delete=models.SET_DEFAULT, blank=True, null=True, default=None, verbose_name="Назначен сотруднику")
 
     work_ended_datetime = models.DateTimeField(default=None, blank=True, null=True, verbose_name='Дата и время выполнения')
 
@@ -80,10 +80,3 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"Услуга {self.name} | Заказ № {self.order.pk}"
-    #
-    # # Используем limit_choices_to с динамическим фильтром
-    # def save(self, *args, **kwargs):
-    #     if self.product:
-    #         # Ограничиваем выбор сотрудников по категории услуги
-    #         self.employee = Employee.objects.filter(category=self.product.category_id).first()
-    #     super(OrderItem, self).save(*args, **kwargs)
