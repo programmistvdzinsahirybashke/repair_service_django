@@ -73,57 +73,94 @@
                                 <!-- Опции времени будут добавлены с помощью JavaScript -->
                             </select>
 
+                            <input type="hidden" id="delivery_datetime" name="delivery_datetime">
+
+
                             <script>
                                 document.addEventListener('DOMContentLoaded', () => {
-                                    const timeSelect = document.getElementById('time');
-                                    const dateInput = document.getElementById('date');
-                                    const deliveryDateTimeInput = document.getElementById('delivery_datetime');
-                                    const startTime = 8; // 8:00 AM
-                                    const endTime = 16; // 4:00 PM
-                                    const interval = 15; // 15 minutes
+    const timeSelect = document.getElementById('time');
+    const dateInput = document.getElementById('date');
+    const deliveryDateTimeInput = document.getElementById('delivery_datetime'); // Добавьте этот input в HTML, если его нет
+    const startTime = 8; // Начало рабочего времени (8:00)
+    const endTime = 16; // Конец рабочего времени (16:00)
+    const interval = 15; // Интервал времени в минутах
 
-                                    const occupiedTimes = {
-                                        "2024-10-20": ["08:00", "08:15", "08:30"],
-                                        "2024-10-21": ["09:00", "09:15"]
-                                    };
 
-                                    function populateTimeOptions(selectedDate) {
-                                        timeSelect.innerHTML = '';
-                                        for (let hour = startTime; hour < endTime; hour++) {
-                                            for (let minutes = 0; minutes < 60; minutes += interval) {
-                                                const time = `${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
-                                                const option = document.createElement('option');
-                                                option.value = time;
-                                                option.textContent = time;
 
-                                                // Проверяем, занято ли это время на выбранную дату
-                                                if (occupiedTimes[selectedDate] && occupiedTimes[selectedDate].includes(time)) {
-                                                    option.disabled = true; // Отключаем занятые времена
-                                                }
+    function populateTimeOptions(selectedDate) {
+        timeSelect.innerHTML = ''; // Очистка предыдущих опций
 
-                                                timeSelect.appendChild(option);
-                                            }
-                                        }
-                                    }
+        // Запрашиваем занятые времена у сервера
+        fetch(`/orders/api/get-occupied-times/?date=${selectedDate}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Ошибка HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const occupiedTimes = data.occupied_times || [];
+                console.log('Занятые времена:', occupiedTimes);
 
-                                    const today = new Date().toISOString().split('T')[0];
-                                    dateInput.setAttribute('min', today);
+                // Генерация доступных временных интервалов
+                for (let hour = startTime; hour < endTime; hour++) {
+                    for (let minutes = 0; minutes < 60; minutes += interval) {
+                        const time = `${hour.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+                        const option = document.createElement('option');
+                        option.value = time;
+                        option.textContent = time;
 
-                                    dateInput.addEventListener('change', (event) => {
-                                        const selectedDate = event.target.value;
-                                        populateTimeOptions(selectedDate);
-                                    });
+                        // Проверяем, занято ли это время
+                        if (occupiedTimes.includes(time)) {
+                            option.disabled = true; // Отключаем занятые времена
+                        }
 
-                                    timeSelect.addEventListener('change', () => {
-                                        const selectedDate = dateInput.value;
-                                        const selectedTime = timeSelect.value;
-                                        if (selectedDate && selectedTime) {
-                                            deliveryDateTimeInput.value = `${selectedDate}T${selectedTime}`; // Формат для DateTimeField
-                                        }
-                                    });
+                        timeSelect.appendChild(option);
+                    }
+                }
 
-                                    populateTimeOptions(today);
-                                });
+                // Если все опции недоступны
+                if (!timeSelect.innerHTML.trim()) {
+                    const noAvailableOption = document.createElement('option');
+                    noAvailableOption.textContent = 'Нет доступных времён';
+                    noAvailableOption.disabled = true;
+                    noAvailableOption.selected = true;
+                    timeSelect.appendChild(noAvailableOption);
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка при получении данных о занятых временах:', error);
+            });
+    }
+
+    // Установка минимальной даты на сегодня
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+
+    // Событие при изменении даты
+    dateInput.addEventListener('change', (event) => {
+        const selectedDate = event.target.value;
+        if (selectedDate) {
+            populateTimeOptions(selectedDate);
+        }
+    });
+
+    // Обновление скрытого поля даты и времени
+    timeSelect.addEventListener('change', () => {
+        const selectedDate = dateInput.value;
+        const selectedTime = timeSelect.value;
+        if (selectedDate && selectedTime) {
+            if (deliveryDateTimeInput) {
+                deliveryDateTimeInput.value = `${selectedDate}T${selectedTime}`;
+            } else {
+                console.error("Элемент с id 'delivery_datetime' не найден. Проверьте HTML-код.");
+            }
+        }
+    });
+
+    // Инициализация времён для минимальной даты (сегодня)
+    populateTimeOptions(today);
+});
                             </script>
                         </div>
                         <div class="col-md-12 mb-3">

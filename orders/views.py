@@ -79,3 +79,31 @@ def create_order(request):
         'order':True,
     }
     return render(request, 'orders/create_order.html', context=context)
+
+
+from django.http import JsonResponse
+from .models import Order
+from datetime import datetime
+
+
+def get_occupied_times(request):
+    # Получаем параметр "date" из GET-запроса
+    date = request.GET.get('date')
+
+    # Если дата не указана или недопустима, возвращаем пустой список
+    if not date:
+        return JsonResponse({'occupied_times': []})
+
+    # Преобразуем строку даты в объект Date
+    try:
+        date_obj = datetime.strptime(date, "%Y-%m-%d").date()
+    except ValueError:
+        return JsonResponse({'occupied_times': []})
+
+    # Извлекаем все заказы для указанной даты, которые имеют время доставки
+    orders = Order.objects.filter(delivery_date=date_obj).values_list('delivery_time', flat=True)
+
+    # Преобразуем занятые интервалы в формат HH:MM
+    occupied_times = [time.strftime('%H:%M') for time in orders]
+
+    return JsonResponse({'occupied_times': occupied_times})
