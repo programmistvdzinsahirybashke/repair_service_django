@@ -95,7 +95,7 @@ DATABASES = {
         'NAME': 'postgres',  # замените на имя вашей базы данных
         'USER': 'postgres',  # ваш логин
         'PASSWORD': '123',  # ваш пароль
-        'HOST': 'localhost',
+        'HOST': '94.141.160.109',
         'PORT': '5432',  # по умолчанию
     }
 }
