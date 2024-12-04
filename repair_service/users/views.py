@@ -4,11 +4,11 @@ from django.db.models import Prefetch, Sum, F
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-
+from .models import  User
 from carts.models import Cart
 from users.forms import UserLoginForm, UserRegistrationForm , ProfileForm
 
-from orders.models import Order, OrderItem
+from orders.models import Order, OrderItem, Status
 
 
 # Create your views here.
@@ -109,3 +109,50 @@ def logout(request):
     messages.success(request, f'Вы вышли из аккаунта')
     auth.logout(request)
     return redirect(reverse('repair_app:index'))
+
+
+from django.shortcuts import render
+from django.db.models import Q
+
+
+def admin_orders(request):
+    search_query = request.GET.get('search', '')
+    status_filter = request.GET.get('status', '')
+    sort_order = request.GET.get('sort', 'desc')  # По умолчанию сортировка убывающая
+
+    orders = Order.objects.all().order_by('id')
+    statuses = Status.objects.all()
+    # Фильтрация
+    if search_query:
+        orders = orders.filter(
+            Q(id__icontains=search_query) |
+            Q(user__username__icontains=search_query)
+        )
+
+    if status_filter:
+        orders = orders.filter(status__status_name=status_filter)
+
+    # Сортировка по ID
+    if sort_order == 'asc':
+        orders = orders.order_by('id')  # По возрастанию
+    else:
+        orders = orders.order_by('-id')  # По убыванию (по умолчанию)
+
+    statuses = Order.Status.choices if hasattr(Order, 'Status') else None
+
+    for order in orders:
+        order.total = order.orderitem_set.aggregate(
+            total=Sum(F('quantity') * F('price'))
+        )['total'] or 0
+
+
+    context = {
+        'orders': orders,
+        'statuses': statuses,
+        'filters': {
+            'search_query': search_query,
+            'status_filter': status_filter,
+            'sort_order': sort_order,
+        },
+    }
+    return render(request, 'users/admin_orders.html', context)
